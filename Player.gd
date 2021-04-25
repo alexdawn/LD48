@@ -1,0 +1,65 @@
+extends RigidBody2D
+
+signal hit
+signal pos
+export var speed = 200
+var last_motion = 'down'
+
+func _ready():
+    pass
+
+func _process(delta):
+    var velocity = Vector2()  # The player's movement vector.
+    if Input.is_action_pressed("ui_right") and not Input.is_action_pressed("action_1"):
+        velocity.x = 1
+        $MiningArea.position.x = 25
+        last_motion = 'right'
+    if Input.is_action_pressed("ui_left") and not Input.is_action_pressed("action_1"):
+        velocity.x = -1
+        $MiningArea.position.x = -25
+        last_motion = 'left'
+    if Input.is_action_pressed("ui_down"):
+        last_motion = 'down'
+    if Input.is_action_pressed("action_2"):
+        if len($JumpArea.get_overlapping_bodies()) > 1:
+            velocity.y = -2
+            $JumpSound.play()
+    if velocity.length() > 0:
+        velocity = velocity * speed
+        $AnimatedSprite.play()
+    else:
+        if Input.is_action_pressed("action_1"):
+            if last_motion == 'down':
+                $AnimatedSprite.animation = "DigDown"
+                $AnimatedSprite.speed_scale = 3
+            else:
+                $AnimatedSprite.animation = "Dig"
+                $AnimatedSprite.speed_scale = 4
+        else:
+            $AnimatedSprite.animation = "Resting"
+            $AnimatedSprite.speed_scale = 1
+    if velocity.x != 0:
+        $AnimatedSprite.animation = "Walk"
+        $AnimatedSprite.speed_scale = 1
+        $AnimatedSprite.flip_h = velocity.x < 0
+    set_axis_velocity(velocity)
+    if linear_velocity.x != 0 or linear_velocity.y != 0:
+        emit_signal("pos", global_position)
+
+
+func _on_AnimatedSprite_animation_finished():
+    if $AnimatedSprite.animation == "DigDown":
+        emit_signal("hit", $MiningAreaDown.global_position)
+    elif $AnimatedSprite.animation == "Dig":
+        emit_signal("hit", $MiningArea.global_position)
+    
+
+func _on_HUD_sfx(value):
+    $WalkSound.set_volume_db((value-100)*0.6-10)
+    $JumpSound.set_volume_db((value-100)*0.6)
+    $JumpSound.play()
+
+
+func _on_AnimatedSprite_frame_changed():
+    if $AnimatedSprite.animation == "Walk" and len($JumpArea.get_overlapping_bodies()) > 1 and !$WalkSound.playing:
+        $WalkSound.play()
