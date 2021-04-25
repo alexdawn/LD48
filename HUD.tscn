@@ -29,6 +29,30 @@ __meta__ = {
 [node name="Menu" type="CanvasModulate" parent="."]
 position = Vector2( 1.41431, 1.41425 )
 
+[node name="Label" type="Label" parent="Menu"]
+visible = false
+margin_left = -1.41431
+margin_top = 54.5858
+margin_right = 1014.59
+margin_bottom = 340.586
+text = "Created by Alex Dawn for Ludum Dare 48
+
+    This game uses Godot Engine, available under the following license:
+
+    Copyright (c) 2007-2021 Juan Linietsky, Ariel Manzur. Copyright (c) 2014-2021 Godot Engine contributors.
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Sprite2" type="Sprite" parent="Menu"]
 visible = false
 position = Vector2( 509.117, 302.642 )
@@ -73,10 +97,24 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 478.586
+margin_top = 486.586
+margin_right = 518.586
+margin_bottom = 506.586
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CreditsButton" type="Button" parent="Menu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 478.586
 margin_top = 454.586
 margin_right = 518.586
 margin_bottom = 474.586
-text = "Quit"
+text = "Credits"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -129,5 +167,6 @@ autoplay = true
 [connection signal="pressed" from="Menu/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="Menu/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="Menu/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="button_down" from="Menu/CreditsButton" to="." method="_on_CreditsButton_button_down"]
 [connection signal="value_changed" from="Menu/Music" to="." method="_on_Music_value_changed"]
 [connection signal="value_changed" from="Menu/Audio" to="." method="_on_Audio_value_changed"]

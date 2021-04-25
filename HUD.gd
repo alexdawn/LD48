@@ -52,3 +52,12 @@ func _on_Music_value_changed(value):
 
 func _on_Audio_value_changed(value):
     emit_signal("sfx", value)
+
+
+func _on_CreditsButton_pressed():
+    pass # Replace with function body.
+
+
+func _on_CreditsButton_button_down():
+    $Menu/Sprite.visible = !$Menu/Sprite.visible
+    $Menu/Label.visible = !$Menu/Label.visible
