@@ -12,7 +12,6 @@ config_version=4
 
 config/name="DigDeep"
 run/main_scene="res://Main.tscn"
-config/icon="res://icon.png"
 
 [autoload]
 
@@ -22,6 +21,8 @@ Globals="*res://globals.gd"
 
 action=false
 scene=false
+display=false
+width=false
 
 [input]
 
@@ -43,6 +44,11 @@ lift_up={
 lift_down={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+throw={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
  ]
 }
 

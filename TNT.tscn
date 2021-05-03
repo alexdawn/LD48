@@ -1,0 +1,112 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Art/light.png" type="Texture" id=1]
+[ext_resource path="res://TNT.gd" type="Script" id=2]
+[ext_resource path="res://Art/TNT2.png" type="Texture" id=3]
+[ext_resource path="res://Art/Explosion.png" type="Texture" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 49, 64 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 49, 0, 49, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 98, 0, 49, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 147, 0, 49, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 196, 0, 49, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 245, 0, 49, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 294, 0, 49, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 343, 0, 49, 64 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": false,
+"name": "default",
+"speed": 20.0
+} ]
+
+[node name="TNT" type="RigidBody2D" groups=[
+"tnt",
+]]
+collision_layer = 3
+mass = 1000.0
+script = ExtResource( 2 )
+
+[node name="TNTShape" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="TNTCollisionBox" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( -4.91555, -4.0072, 5.11838, -3.85855, 5.00371, 12.9421, -4.87576, 13.0357 )
+
+[node name="ExplosionFlash" type="Light2D" parent="."]
+texture = ExtResource( 1 )
+energy = 0.0
+
+[node name="ExplosionParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 250
+one_shot = true
+explosiveness = 1.0
+randomness = 0.57
+local_coords = false
+emission_shape = 1
+emission_sphere_radius = 2.0
+direction = Vector2( 0, -1 )
+spread = 180.0
+gravity = Vector2( 0, -98 )
+initial_velocity = 150.0
+initial_velocity_random = 0.9
+linear_accel = -66.67
+
+[node name="FuseParticles" type="CPUParticles2D" parent="."]
+position = Vector2( 0, -32 )
+amount = 40
+explosiveness = 0.04
+randomness = 0.29
+local_coords = false
+direction = Vector2( 0, 1 )
+spread = 21.29
+gravity = Vector2( 0, -98 )
+initial_velocity = 21.51
+initial_velocity_random = 0.42
+color = Color( 0.988235, 0.984314, 0.654902, 1 )
+
+[node name="Fuse" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+visible = false
+position = Vector2( 0.667419, -13.6821 )
+frames = SubResource( 9 )
+
+[connection signal="timeout" from="Fuse" to="." method="_on_Fuse_timeout"]

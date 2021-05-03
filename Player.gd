@@ -2,8 +2,11 @@ extends RigidBody2D
 
 signal hit
 signal pos
+signal throw
 export var speed = 200
 var last_motion = 'down'
+var explosives = 3
+var tnt = preload("res://TNT.tscn")
 
 func _ready():
     pass
@@ -45,6 +48,14 @@ func _process(delta):
     set_axis_velocity(velocity)
     if linear_velocity.x != 0 or linear_velocity.y != 0:
         emit_signal("pos", global_position)
+    if Input.is_action_just_released("throw") and explosives > 0:
+        var main = get_tree().current_scene
+        var tnt_instance = tnt.instance()
+        main.add_child(tnt_instance)
+        tnt_instance.set_global_position($MiningArea.get_global_position())
+        tnt_instance.set_axis_velocity(10 * $MiningArea.get_position())
+        explosives -= 1
+        emit_signal("throw", explosives)
 
 
 func _on_AnimatedSprite_animation_finished():

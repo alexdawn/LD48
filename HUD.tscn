@@ -26,6 +26,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Explosives" type="Label" parent="."]
+margin_top = 48.0
+margin_right = 85.0
+margin_bottom = 62.0
+text = "Explosives: 3"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Menu" type="CanvasModulate" parent="."]
 position = Vector2( 1.41431, 1.41425 )
 

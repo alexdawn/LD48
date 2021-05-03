@@ -61,3 +61,7 @@ func _on_CreditsButton_pressed():
 func _on_CreditsButton_button_down():
     $Menu/Sprite.visible = !$Menu/Sprite.visible
     $Menu/Label.visible = !$Menu/Label.visible
+
+
+func _on_Player_throw(new_value):
+    $Explosives.text = 'Explosives: %d' % new_value
